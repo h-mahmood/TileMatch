@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 
 public class MediumGame extends ActionBarActivity {
@@ -13,12 +14,31 @@ public class MediumGame extends ActionBarActivity {
 
     public void clickedTile(View v) {
 
+        ImageButton ib = (ImageButton) findViewById(v.getId());
+        String s;
+        s = "" + v.getId();
+
         Log.i("[MediumGame]", "Clicked button");
+        Log.i("[MediumGame]", s);
+
+        if(ib.getTag() == "circle")
+        {
+            ib.setImageResource(R.drawable.square);
+            ib.setTag("square");
+        }
+        else
+        {
+            ib.setImageResource(R.drawable.circle);
+            ib.setTag("circle");
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Loop through image buttons and set tag to "blank"
+
         setContentView(R.layout.activity_medium_game);
     }
 
