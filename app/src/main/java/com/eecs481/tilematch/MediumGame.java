@@ -7,10 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Chronometer;
 
 
 public class MediumGame extends ActionBarActivity {
 
+    public void quitButtonClick(View v) {
+
+        Log.i("[MediumGame]", "quitButtonClick in Game Screen");
+        this.finish();
+    }
 
     public void clickedTile(View v) {
 
@@ -39,6 +45,9 @@ public class MediumGame extends ActionBarActivity {
         //Loop through image buttons and set tag to "blank"
 
         setContentView(R.layout.activity_medium_game);
+
+        Chronometer timer = (Chronometer) findViewById(R.id.timer);
+        timer.start();
     }
 
 

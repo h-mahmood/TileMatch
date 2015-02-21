@@ -21,7 +21,8 @@
             android:id="@+id/QuitButton"
             android:layout_weight="1"
             android:textSize="45dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:onClick="quitButtonClick" />
 
         <Chronometer
             android:layout_width="wrap_content"
@@ -49,7 +50,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="button1"
                 android:id="@+id/button"
                 android:layout_column="0"
                 android:clickable="true"
@@ -58,7 +58,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button2"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
@@ -66,7 +65,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button3"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
@@ -74,7 +72,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button4"
                 android:layout_column="3"
                 android:onClick="clickedTile" />
@@ -87,7 +84,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button5"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
@@ -95,7 +91,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button6"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
@@ -111,7 +106,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button8"
                 android:layout_column="3"
                 android:onClick="clickedTile" />
@@ -124,7 +118,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button9"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
@@ -132,7 +125,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button10"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
@@ -148,7 +140,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button12"
                 android:layout_column="3"
                 android:onClick="clickedTile" />
@@ -161,7 +152,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button13"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
@@ -169,7 +159,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button14"
                 android:layout_column="1"
                 android:onClick="clickedTile"
@@ -178,7 +167,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button15"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
@@ -186,7 +174,6 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:text="New Button"
                 android:id="@+id/button16"
                 android:layout_column="3"
                 android:onClick="clickedTile" />
