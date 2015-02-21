@@ -11,26 +11,26 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:id="@+id/linearLayout">
 
         <Button
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:text="Quit"
             android:id="@+id/QuitButton"
             android:layout_weight="1"
-            android:textSize="30dp"
+            android:textSize="45dp"
             android:gravity="center" />
 
-        <EditText
+        <Chronometer
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Insert Timer Here"
-            android:id="@+id/editText"
-            android:layout_weight="1"
-            android:textSize="70dp"
-            android:gravity="right" />
+            android:id="@+id/timer"
+            android:textSize="90dp"
+            android:gravity="right"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <TableLayout
@@ -47,8 +47,8 @@
             android:layout_height="fill_parent">
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="button1"
                 android:id="@+id/button"
                 android:layout_column="0"
@@ -56,24 +56,24 @@
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button2"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button3"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button4"
                 android:layout_column="3"
@@ -85,32 +85,32 @@
             android:layout_height="fill_parent">
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button5"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button6"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button7"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button8"
                 android:layout_column="3"
@@ -122,32 +122,32 @@
             android:layout_height="fill_parent">
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button9"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button10"
                 android:layout_column="1"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button11"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button12"
                 android:layout_column="3"
@@ -159,16 +159,16 @@
             android:layout_height="fill_parent">
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button13"
                 android:layout_column="0"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button14"
                 android:layout_column="1"
@@ -176,16 +176,16 @@
                 android:tag="blank"/>
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button15"
                 android:layout_column="2"
                 android:onClick="clickedTile" />
 
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
                 android:text="New Button"
                 android:id="@+id/button16"
                 android:layout_column="3"

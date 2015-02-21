@@ -13,9 +13,10 @@
         android:textSize="75dp"
         android:text="Settings"
         android:id="@+id/SettingsButton"
+        android:layout_centerHorizontal="true"
         android:layout_centerInParent = "true"
         android:clickable="true"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:onClick="settingButtonClick" />
 
     <Button

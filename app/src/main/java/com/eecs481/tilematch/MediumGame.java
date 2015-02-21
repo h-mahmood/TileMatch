@@ -17,7 +17,6 @@ public class MediumGame extends ActionBarActivity {
         ImageButton ib = (ImageButton) findViewById(v.getId());
         String s;
         s = "" + v.getId();
-
         Log.i("[MediumGame]", "Clicked button");
         Log.i("[MediumGame]", s);
 
