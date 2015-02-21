@@ -50,7 +50,7 @@
             <ImageButton
                 android:layout_width="145dp"
                 android:layout_height="145dp"
-                android:id="@+id/button"
+                android:id="@+id/button1"
                 android:layout_column="0"
                 android:clickable="true"
                 android:onClick="clickedTile" />
