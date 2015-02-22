@@ -19,6 +19,7 @@ public class MediumGame extends ActionBarActivity {
     int numClicked = 0;
     Long  firstID, secondID;
     private Handler pauseHandler = new Handler();
+    int guard = 0;
 
     public void quitButtonClick(View v) {
         Log.i("[MediumGame]", "quitButtonClick in Game Screen");
@@ -48,7 +49,13 @@ public class MediumGame extends ActionBarActivity {
         }
     }
 
-    public synchronized void clickHelper(View v){
+    public int tryLock(){
+        int temp = guard;
+        guard = 1;
+        return temp;
+    }
+
+    public void clickHelper(View v){
         ImageButton ib = (ImageButton) findViewById(v.getId());
         String s;
         s = "" + v.getId();
@@ -56,41 +63,39 @@ public class MediumGame extends ActionBarActivity {
         Log.i("[MediumGame]", s);
 
         numClicked++;
-        Log.i("[MediumGame]", "numClicked: "+numClicked);
+        Log.i("[MediumGame]", "numClicked: "+ numClicked);
         if (numClicked == 1){
             firstID = new Long(v.getId());
             String targetTag = tagMap.get(firstID);
             setImage(ib, targetTag);
-
+            guard = 0;
         }
         else if (numClicked == 2) {
-            // set image
+            // Set image
             secondID = new Long(v.getId());
             String targetTag = tagMap.get(secondID);
             setImage(ib, targetTag);
-            // wait for 3 secs
-            pauseHandler.postDelayed(new Runnable() {
-                public void run() {
-                    pauseCallBack();
-                }
-            }, 3000);
 
-            // compare tiles
-//            ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
-//            if (targetTag.equals(tagMap.get(firstID))) {
-//                Log.i("[MediumGame]", "tile matched!");
-//                ib.setVisibility(View.VISIBLE);
-//                ib.setOnClickListener(null);
-//
-//
-//                ib1.setVisibility(View.VISIBLE);
-//                ib1.setOnClickListener(null);
-//            }
-//            else {
-//                Log.i("[MediumGame]", "tile not match :-<");
-//                setImage(ib, "blank");
-//                setImage(ib1, "blank");
-//            }
+            // Check if tiles match
+            ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
+            ImageButton ib2 = (ImageButton) findViewById(secondID.intValue());
+            if (tagMap.get(secondID).equals(tagMap.get(firstID))) {
+                Log.i("[MediumGame]", "tile matched!");
+                ib2.setVisibility(View.VISIBLE);
+                ib2.setOnClickListener(null);
+                ib1.setVisibility(View.VISIBLE);
+                ib1.setOnClickListener(null);
+                guard = 0;
+            }
+
+            // Wait for 3 seconds if they don't match
+            else {
+                pauseHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        pauseCallBack();
+                    }
+                }, 3000);
+            }
             numClicked = 0;
         }
     }
@@ -98,22 +103,16 @@ public class MediumGame extends ActionBarActivity {
     public void pauseCallBack(){
         ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
         ImageButton ib2 = (ImageButton) findViewById(secondID.intValue());
-        if (tagMap.get(secondID).equals(tagMap.get(firstID))) {
-            Log.i("[MediumGame]", "tile matched!");
-            ib2.setVisibility(View.VISIBLE);
-            ib2.setOnClickListener(null);
-            ib1.setVisibility(View.VISIBLE);
-            ib1.setOnClickListener(null);
-        }
-        else {
-            Log.i("[MediumGame]", "tile not match :-<");
-            setImage(ib2, "blank");
-            setImage(ib1, "blank");
-        }
+        Log.i("[MediumGame]", "tile not match :-<");
+        setImage(ib2, "blank");
+        setImage(ib1, "blank");
+        guard = 0;
     }
 
     public void clickedTile(View v) {
-        clickHelper(v);
+        if (tryLock() == 0) {
+            clickHelper(v);
+        }
     }
 
     @Override
