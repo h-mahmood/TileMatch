@@ -78,6 +78,7 @@ public class MediumGame extends ActionBarActivity {
             firstID = new Long(v.getId());
             String targetTag = tagMap.get(firstID);
             setImage(ib, targetTag);
+            ib.setEnabled(false);
             guard = 0;
         }
         else if (numClicked == 2) {
@@ -135,6 +136,7 @@ public class MediumGame extends ActionBarActivity {
     public void pauseCallBack(){
         ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
         ImageButton ib2 = (ImageButton) findViewById(secondID.intValue());
+        ib1.setEnabled(true);
         setImage(ib2, "blank");
         setImage(ib1, "blank");
         guard = 0;
