@@ -20,6 +20,10 @@
             android:name=".MediumGame"
             android:label="@string/title_activity_medium_game" >
         </activity>
+        <activity
+            android:name=".GameSettings"
+            android:label="@string/title_activity_game_settings" >
+        </activity>
     </application>
 
 </manifest>

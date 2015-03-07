@@ -1,0 +1,26 @@
+<resources>
+    <string name="title_activity_game_settings">Settings</string>
+
+    <string name="pref_picture_title">Use a Picture as the Background</string>
+    <string name="pref_picture_summary">Find a picture on this device to use
+        as the game screen background</string>
+    <string name="pref_default_picture_location">mnt/sdcard-ext/dcim/camera/pic.jpg</string>
+
+    <string name="pref_difficulty_title">Select Difficulty</string>
+    <string name="pref_difficulty_summary">Harder difficulty levels have more tiles
+        and more patterns</string>
+    <string-array name="pref_difficulty_levels">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <string-array name="pref_difficulty_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string name="pref_ask_title">Use ASK Library</string>
+    <string name="pref_ask_summary">Select this to use one-handed input mode</string>
+
+</resources>

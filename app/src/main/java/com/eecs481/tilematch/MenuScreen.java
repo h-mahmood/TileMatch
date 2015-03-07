@@ -20,6 +20,7 @@ public class MenuScreen extends ActionBarActivity {
     public void settingButtonClick(View v) {
 
         Log.i("[btn]", "settingButtonClick in MenuScreen.java");
+        startActivity(new Intent(this, GameSettings.class));
     }
 
     public void exitButtonClick(View v) {
