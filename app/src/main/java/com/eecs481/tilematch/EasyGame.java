@@ -8,14 +8,14 @@ import android.widget.Chronometer;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MediumGame extends GameScreen {
+public class EasyGame extends GameScreen {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_medium_game);
-        maxNumMatched = 8;
+        setContentView(R.layout.activity_easy_game);
+        maxNumMatched = 4;
 
         // Start timer
         timer = (Chronometer) findViewById(R.id.timer);
@@ -30,37 +30,30 @@ public class MediumGame extends GameScreen {
         buttonId.add( new Long(R.id.button6));
         buttonId.add( new Long(R.id.button7));
         buttonId.add( new Long(R.id.button8));
-        buttonId.add( new Long(R.id.button9));
-        buttonId.add( new Long(R.id.button10));
-        buttonId.add( new Long(R.id.button11));
-        buttonId.add( new Long(R.id.button12));
-        buttonId.add( new Long(R.id.button13));
-        buttonId.add( new Long(R.id.button14));
-        buttonId.add( new Long(R.id.button15));
-        buttonId.add( new Long(R.id.button16));
 
-        // Randomizes ArrayList
+        // Randomize ArrayList
         Collections.shuffle(buttonId);
 
-        // Initialized the map
-        for (int i=0;i<4;i++) {
+        // Initialize the map
+        for (int i=0;i<2;i++) {
             tagMap.put(buttonId.get(i),"circle");
-            tagMap.put(buttonId.get(i+4),"square");
-            tagMap.put(buttonId.get(i+8),"star");
-            tagMap.put(buttonId.get(i+12),"triangle");
+            tagMap.put(buttonId.get(i+2),"square");
+            tagMap.put(buttonId.get(i+4),"star");
+            tagMap.put(buttonId.get(i+6),"triangle");
         }
 
         // Loop through image buttons and set tag to "blank"
-        for (int i=1;i<=16;i++) {
+        for (int i=1;i<=8;i++) {
             ImageButton ib = (ImageButton) findViewById(buttonId.get(i-1).intValue());
             super.setImage(ib, "blank");
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_medium_game, menu);
+        getMenuInflater().inflate(R.menu.menu_easy_game, menu);
         return true;
     }
 

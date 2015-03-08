@@ -28,6 +28,10 @@
             android:name=".GameScreen"
             android:label="@string/title_activity_game_screen" >
         </activity>
+        <activity
+            android:name=".EasyGame"
+            android:label="@string/title_activity_easy_game" >
+        </activity>
     </application>
 
 </manifest>

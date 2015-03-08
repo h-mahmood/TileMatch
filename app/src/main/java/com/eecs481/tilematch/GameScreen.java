@@ -14,10 +14,10 @@ public class GameScreen extends ActionBarActivity {
 
     Chronometer timer;
     HashMap<Long, String> tagMap = new HashMap<Long, String>();
-    int numClicked = 0;
-    Long  firstID, secondID;
     private Handler pauseHandler = new Handler();
+    Long firstID, secondID;
     int guard = 0;
+    int numClicked = 0;
     int numMatched = 0;
     int maxNumMatched;
 
@@ -31,6 +31,7 @@ public class GameScreen extends ActionBarActivity {
     }
 
     public void setImage(ImageButton ib, String targetTag) {
+        // Changes the image on button ib
         if (targetTag.equals("circle")) {
             ib.setImageResource(R.drawable.circle);
             ib.setTag("circle");
@@ -51,6 +52,8 @@ public class GameScreen extends ActionBarActivity {
             ib.setImageResource(R.drawable.blank);
             ib.setTag("blank");
         }
+        else
+            Log.e("[GameScreen]", "targetTag unexpected: " + targetTag);
     }
 
     public int tryLock() {

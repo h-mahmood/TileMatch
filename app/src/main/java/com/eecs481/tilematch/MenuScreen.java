@@ -20,7 +20,7 @@ public class MenuScreen extends ActionBarActivity {
 
         if (difficultyLevel.equals("1")) {
             Log.i("[MenuScreen]", "Selected EasyGame");
-            //startActivity(new Intent(this, EasyGame.class));
+            startActivity(new Intent(this, EasyGame.class));
         }
         else if (difficultyLevel.equals("2")) {
             Log.i("[MenuScreen]", "Selected MediumGame");
@@ -31,7 +31,7 @@ public class MenuScreen extends ActionBarActivity {
             //startActivity(new Intent(this, HardGame.class));
         }
         else
-            Log.i("[MenuScreen]", "difficultyLevel not expected: " + difficultyLevel);
+            Log.e("[MenuScreen]", "difficultyLevel unexpected: " + difficultyLevel);
     }
 
     public void settingButtonClick(View v) {
