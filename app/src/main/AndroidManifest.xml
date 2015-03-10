@@ -32,6 +32,14 @@
             android:name=".EasyGame"
             android:label="@string/title_activity_easy_game" >
         </activity>
+        <activity
+            android:name=".HardGame"
+            android:label="@string/title_activity_hard_game"
+            android:parentActivityName=".GameScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.eecs481.tilematch.GameScreen" />
+        </activity>
     </application>
 
 </manifest>

@@ -7,5 +7,6 @@
     <string name="title_activity_medium_game">MediumGame</string>
     <string name="title_activity_game_screen">GameScreen</string>
     <string name="title_activity_easy_game">EasyGame</string>
+    <string name="title_activity_hard_game">HardGame</string>
 
 </resources>

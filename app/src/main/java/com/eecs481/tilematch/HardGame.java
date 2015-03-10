@@ -1,23 +1,25 @@
 package com.eecs481.tilematch;
 
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MediumGame extends GameScreen {
+
+public class HardGame extends GameScreen {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hard_game);
 
-        setContentView(R.layout.activity_medium_game);
-        maxNumMatched = 8;
+        maxNumMatched = 12;
 
         // Start timer
         timer = (Chronometer) findViewById(R.id.timer);
@@ -40,6 +42,14 @@ public class MediumGame extends GameScreen {
         buttonId.add( new Long(R.id.button14));
         buttonId.add( new Long(R.id.button15));
         buttonId.add( new Long(R.id.button16));
+        buttonId.add( new Long(R.id.button17));
+        buttonId.add( new Long(R.id.button18));
+        buttonId.add( new Long(R.id.button19));
+        buttonId.add( new Long(R.id.button20));
+        buttonId.add( new Long(R.id.button21));
+        buttonId.add( new Long(R.id.button22));
+        buttonId.add( new Long(R.id.button23));
+        buttonId.add( new Long(R.id.button24));
 
         // Randomizes ArrayList
         Collections.shuffle(buttonId);
@@ -50,10 +60,12 @@ public class MediumGame extends GameScreen {
             tagMap.put(buttonId.get(i+4),"square");
             tagMap.put(buttonId.get(i+8),"star");
             tagMap.put(buttonId.get(i+12),"triangle");
+            tagMap.put(buttonId.get(i+16),"star"); //Change to new patterns for these
+            tagMap.put(buttonId.get(i+20),"triangle"); //Change to new patterns for these
         }
 
         // Loop through image buttons and set tag to "blank"
-        for (int i=1;i<=16;i++) {
+        for (int i=1;i<=24;i++) {
             ImageButton ib = (ImageButton) findViewById(buttonId.get(i-1).intValue());
             ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
             ib.setPadding(10,10,10,10);
@@ -62,10 +74,11 @@ public class MediumGame extends GameScreen {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_medium_game, menu);
+        getMenuInflater().inflate(R.menu.menu_hard_game, menu);
         return true;
     }
 

@@ -1,6 +1,7 @@
 package com.eecs481.tilematch;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,7 @@ public class MenuScreen extends ActionBarActivity {
         }
         else if (difficultyLevel.equals("3")) {
             Log.i("[MenuScreen]", "Selected HardGame");
-            //startActivity(new Intent(this, HardGame.class));
+            startActivity(new Intent(this, HardGame.class));
         }
         else
             Log.e("[MenuScreen]", "difficultyLevel unexpected: " + difficultyLevel);
@@ -48,6 +49,7 @@ public class MenuScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_menu_screen);
     }
 
