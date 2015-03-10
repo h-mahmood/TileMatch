@@ -5,6 +5,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -45,6 +47,9 @@ public class EasyGame extends GameScreen {
         // Loop through image buttons and set tag to "blank"
         for (int i=1;i<=8;i++) {
             ImageButton ib = (ImageButton) findViewById(buttonId.get(i-1).intValue());
+            ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            ib.setPadding(10,10,10,10);
+            ib.setAdjustViewBounds(true);
             super.setImage(ib, "blank");
         }
     }
