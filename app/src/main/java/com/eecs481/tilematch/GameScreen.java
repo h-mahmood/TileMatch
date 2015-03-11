@@ -1,6 +1,11 @@
 package com.eecs481.tilematch;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -8,9 +13,11 @@ import android.view.View;
 import android.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
+import android.widget.TableLayout;
+
 import java.util.HashMap;
 
-public class GameScreen extends ActionBarActivity {
+public class GameScreen extends Activity {
 
     Chronometer timer;
     HashMap<Long, String> tagMap = new HashMap<Long, String>();
@@ -20,6 +27,19 @@ public class GameScreen extends ActionBarActivity {
     int numClicked = 0;
     int numMatched = 0;
     int maxNumMatched;
+
+    public void drawBackground(TableLayout gameBoard)
+    {
+        //Sets the background image to the game board
+        //**Right now the path is hard coded. Later we will get this path from the settings file browser
+        
+        Bitmap btm = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/DCIM/Camera/IMG_20150310_185737.jpg");
+
+        BitmapDrawable btd = new BitmapDrawable(btm);
+        gameBoard.setBackground(btd);
+    }
+
 
     public void quitHelper() {
         this.finish();

@@ -37,6 +37,7 @@
     </LinearLayout>
 
     <TableLayout
+        android:id="@+id/medium_game_board"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:weightSum="4"
