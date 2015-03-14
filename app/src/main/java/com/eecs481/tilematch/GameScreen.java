@@ -1,11 +1,14 @@
 package com.eecs481.tilematch;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -14,7 +17,6 @@ import android.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
 import android.widget.TableLayout;
-
 import java.util.HashMap;
 
 public class GameScreen extends Activity {
@@ -27,6 +29,32 @@ public class GameScreen extends Activity {
     int numClicked = 0;
     int numMatched = 0;
     int maxNumMatched;
+
+    AnimatorSet setRightOut;
+    AnimatorSet setRightIn;
+    AnimatorSet setLeftOut1;
+    AnimatorSet setLeftOut2;
+    AnimatorSet setLeftIn1;
+    AnimatorSet setLeftIn2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Initialize animation objects for tile flipping animation
+        setRightOut = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_right_out);
+        setRightIn = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_right_in);
+        setLeftOut1 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_out);
+        setLeftOut2 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_out);
+        setLeftIn1 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_in);
+        setLeftIn2 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_in);
+    }
 
     public void drawBackground(TableLayout gameBoard) {
         // Sets the background image to the game board
@@ -50,7 +78,7 @@ public class GameScreen extends Activity {
         quitHelper();
     }
 
-    public void setImage(ImageButton ib, String targetTag) {
+    public void setImage(ImageButton ib, String targetTag, AnimatorSet in, AnimatorSet out) {
         // Changes the image on button ib
         if (targetTag.equals("circle")) {
             ib.setImageResource(R.drawable.circle);
@@ -74,6 +102,14 @@ public class GameScreen extends Activity {
         }
         else
             Log.e("[GameScreen]", "targetTag unexpected: " + targetTag);
+
+        if (in == null || out == null) return;
+
+        // Animation is leading to performance issues
+//        in.setTarget(ib);
+//        out.setTarget(ib);
+//        out.start();
+//        in.start();
     }
 
     public int tryLock() {
@@ -96,7 +132,7 @@ public class GameScreen extends Activity {
             // Set image
             firstID = new Long(v.getId());
             String targetTag = tagMap.get(firstID);
-            setImage(ib, targetTag);
+            setImage(ib, targetTag, setRightIn, setRightOut);
             ib.setEnabled(false);
             guard = 0;
         }
@@ -104,7 +140,7 @@ public class GameScreen extends Activity {
             // Set image
             secondID = new Long(v.getId());
             String targetTag = tagMap.get(secondID);
-            setImage(ib, targetTag);
+            setImage(ib, targetTag, setRightIn, setRightOut);
 
             // Check if tiles match
             final ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
@@ -152,8 +188,8 @@ public class GameScreen extends Activity {
 
     public void pauseCallBack(ImageButton ib1, ImageButton ib2) {
         ib1.setEnabled(true);
-        setImage(ib2, "blank");
-        setImage(ib1, "blank");
+        setImage(ib2, "blank", setLeftIn1, setLeftOut1);
+        setImage(ib1, "blank", setLeftIn2, setLeftOut2);
         guard = 0;
     }
 

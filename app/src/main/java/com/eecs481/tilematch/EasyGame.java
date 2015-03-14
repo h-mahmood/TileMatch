@@ -52,7 +52,7 @@ public class EasyGame extends GameScreen {
             ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
             ib.setPadding(10,10,10,10);
             ib.setAdjustViewBounds(true);
-            super.setImage(ib, "blank");
+            super.setImage(ib, "blank", null, null);
         }
     }
 }
