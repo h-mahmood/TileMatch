@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog;
@@ -28,8 +27,7 @@ public class GameScreen extends Activity {
     int numMatched = 0;
     int maxNumMatched;
 
-    public void drawBackground(TableLayout gameBoard)
-    {
+    public void drawBackground(TableLayout gameBoard) {
         //Sets the background image to the game board
         //**Right now the path is hard coded. Later we will get this path from the settings file browser
         

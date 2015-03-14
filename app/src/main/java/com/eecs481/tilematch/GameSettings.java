@@ -1,6 +1,7 @@
 package com.eecs481.tilematch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,8 +9,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +18,11 @@ import android.widget.LinearLayout;
 public class GameSettings extends PreferenceActivity {
 
     private static final boolean ALWAYS_SIMPLE_PREFS = true;
+
+    public void pictureButtonClick() {
+        Log.i("[btn]", "Clicked Picture button");
+        startActivity(new Intent(this, PictureList.class));
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -34,6 +40,15 @@ public class GameSettings extends PreferenceActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        Preference pr = findPreference("select_picture");
+        pr.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                pictureButtonClick();
+                return false;
             }
         });
     }

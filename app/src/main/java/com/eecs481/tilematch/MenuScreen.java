@@ -2,12 +2,8 @@ package com.eecs481.tilematch;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -18,7 +14,7 @@ public class MenuScreen extends Activity {
         Log.i("[btn]", "playButtonClick in MenuScreen.java");
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        String difficultyLevel = settings.getString("select_difficulty", "NULL");
+        String difficultyLevel = settings.getString("select_difficulty", "2");
 
         if (difficultyLevel.equals("1")) {
             Log.i("[MenuScreen]", "Selected EasyGame");
