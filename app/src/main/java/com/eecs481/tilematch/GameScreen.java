@@ -2,11 +2,12 @@ package com.eecs481.tilematch;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog;
@@ -28,16 +29,17 @@ public class GameScreen extends Activity {
     int maxNumMatched;
 
     public void drawBackground(TableLayout gameBoard) {
-        //Sets the background image to the game board
-        //**Right now the path is hard coded. Later we will get this path from the settings file browser
-        
-        Bitmap btm = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()
-                + "/DCIM/Camera/IMG_20150310_185737.jpg");
+        // Sets the background image to the game board
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String imagePath = settings.getString("select_picture", "default");
+        if (imagePath.equals("default")) return;
+
+        Log.i("[GameScreen]", "Set background image to: " + imagePath);
+        Bitmap btm = BitmapFactory.decodeFile(imagePath);
         BitmapDrawable btd = new BitmapDrawable(btm);
         gameBoard.setBackground(btd);
     }
-
 
     public void quitHelper() {
         this.finish();

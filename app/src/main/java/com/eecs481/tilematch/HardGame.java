@@ -1,16 +1,10 @@
 package com.eecs481.tilematch;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
-
 import java.util.ArrayList;
 import java.util.Collections;
 

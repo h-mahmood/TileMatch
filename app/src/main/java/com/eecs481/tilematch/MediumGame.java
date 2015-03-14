@@ -1,8 +1,6 @@
 package com.eecs481.tilematch;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
 import android.widget.ImageView;
