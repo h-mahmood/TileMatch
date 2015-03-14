@@ -30,35 +30,28 @@ public class GameScreen extends Activity {
     int numMatched = 0;
     int maxNumMatched;
 
-    AnimatorSet setRightOut;
-    AnimatorSet setRightIn;
-    AnimatorSet setLeftOut1;
-    AnimatorSet setLeftOut2;
-    AnimatorSet setLeftIn1;
-    AnimatorSet setLeftIn2;
+    AnimatorSet setRightOut1;
+    AnimatorSet setRightOut2;
+    AnimatorSet setRightIn1;
+    AnimatorSet setRightIn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize animation objects for tile flipping animation
-        setRightOut = (AnimatorSet) AnimatorInflater
+        setRightOut1 = (AnimatorSet) AnimatorInflater
                 .loadAnimator(getApplicationContext(), R.animator.card_flip_right_out);
-        setRightIn = (AnimatorSet) AnimatorInflater
+        setRightOut2 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_right_out);
+        setRightIn1 = (AnimatorSet) AnimatorInflater
                 .loadAnimator(getApplicationContext(), R.animator.card_flip_right_in);
-        setLeftOut1 = (AnimatorSet) AnimatorInflater
-                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_out);
-        setLeftOut2 = (AnimatorSet) AnimatorInflater
-                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_out);
-        setLeftIn1 = (AnimatorSet) AnimatorInflater
-                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_in);
-        setLeftIn2 = (AnimatorSet) AnimatorInflater
-                .loadAnimator(getApplicationContext(), R.animator.card_flip_left_in);
+        setRightIn2 = (AnimatorSet) AnimatorInflater
+                .loadAnimator(getApplicationContext(), R.animator.card_flip_right_in);
     }
 
     public void drawBackground(TableLayout gameBoard) {
         // Sets the background image to the game board
-
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String imagePath = settings.getString("select_picture", "default");
         if (imagePath.equals("default")) return;
@@ -105,11 +98,10 @@ public class GameScreen extends Activity {
 
         if (in == null || out == null) return;
 
-        // Animation is leading to performance issues
-//        in.setTarget(ib);
-//        out.setTarget(ib);
-//        out.start();
-//        in.start();
+        in.setTarget(ib);
+        out.setTarget(ib);
+        out.start();
+        in.start();
     }
 
     public int tryLock() {
@@ -117,6 +109,10 @@ public class GameScreen extends Activity {
         int temp = guard;
         guard = 1;
         return temp;
+    }
+
+    public void releaseGuard() {
+        guard = 0;
     }
 
     public void clickHelper(View v) {
@@ -132,19 +128,24 @@ public class GameScreen extends Activity {
             // Set image
             firstID = new Long(v.getId());
             String targetTag = tagMap.get(firstID);
-            setImage(ib, targetTag, setRightIn, setRightOut);
+            setImage(ib, targetTag, setRightIn1, setRightOut1);
             ib.setEnabled(false);
-            guard = 0;
+            pauseHandler.postDelayed(new Runnable() {
+                public void run() {
+                    releaseGuard();
+                }
+            }, 255);
         }
         else if (numClicked == 2) {
             // Set image
             secondID = new Long(v.getId());
             String targetTag = tagMap.get(secondID);
-            setImage(ib, targetTag, setRightIn, setRightOut);
+            setImage(ib, targetTag, setRightIn1, setRightOut1);
 
             // Check if tiles match
             final ImageButton ib1 = (ImageButton) findViewById(firstID.intValue());
             final ImageButton ib2 = (ImageButton) findViewById(secondID.intValue());
+
             if (tagMap.get(secondID).equals(tagMap.get(firstID))) {
                 Log.i("[GameScreen]", "tile matched!");
                 numMatched++;
@@ -188,8 +189,8 @@ public class GameScreen extends Activity {
 
     public void pauseCallBack(ImageButton ib1, ImageButton ib2) {
         ib1.setEnabled(true);
-        setImage(ib2, "blank", setLeftIn1, setLeftOut1);
-        setImage(ib1, "blank", setLeftIn2, setLeftOut2);
+        setImage(ib2, "blank", setRightIn1, setRightOut1);
+        setImage(ib1, "blank", setRightIn2, setRightOut2);
         guard = 0;
     }
 
