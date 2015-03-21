@@ -48,11 +48,6 @@ public class MediumGame extends GameScreen {
         // Randomizes ArrayList
         Collections.shuffle(buttonId);
 
-        ArrayList<String> imgTags = new ArrayList<String>(
-                Arrays.asList("circle", "square", "star", "triangle"));
-        Collections.shuffle(imgTags);
-
-
         // Initialized the map
         for (int i=0;i<4;i++) {
             tagMap.put(buttonId.get(i),imgTags.get(0));

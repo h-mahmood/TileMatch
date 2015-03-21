@@ -57,12 +57,12 @@ public class HardGame extends GameScreen {
 
         // Initialized the map
         for (int i=0;i<4;i++) {
-            tagMap.put(buttonId.get(i),"circle");
-            tagMap.put(buttonId.get(i+4),"square");
-            tagMap.put(buttonId.get(i+8),"star");
-            tagMap.put(buttonId.get(i+12),"triangle");
-            tagMap.put(buttonId.get(i+16),"star"); //Change to new patterns for these
-            tagMap.put(buttonId.get(i+20),"triangle"); //Change to new patterns for these
+            tagMap.put(buttonId.get(i),imgTags.get(0));
+            tagMap.put(buttonId.get(i+4),imgTags.get(1));
+            tagMap.put(buttonId.get(i+8),imgTags.get(2));
+            tagMap.put(buttonId.get(i+12),imgTags.get(3));
+            tagMap.put(buttonId.get(i+16),imgTags.get(4));
+            tagMap.put(buttonId.get(i+20),imgTags.get(5));
         }
 
         // Loop through image buttons and set tag to "blank"

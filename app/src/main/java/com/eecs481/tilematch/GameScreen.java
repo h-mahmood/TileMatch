@@ -18,6 +18,10 @@ import android.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
 import android.widget.TableLayout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class GameScreen extends Activity {
@@ -36,6 +40,8 @@ public class GameScreen extends Activity {
     AnimatorSet setRightIn1;
     AnimatorSet setRightIn2;
 
+    ArrayList<String> imgTags; //This keeps an array of all tile images
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,15 @@ public class GameScreen extends Activity {
                 .loadAnimator(getApplicationContext(), R.animator.card_flip_right_in);
         setRightIn2 = (AnimatorSet) AnimatorInflater
                 .loadAnimator(getApplicationContext(), R.animator.card_flip_right_in);
+
+        // Shuffles the images used for tile backgrounds
+        imgTags = new ArrayList<>(
+                Arrays.asList("alarm", "apple", "attendant", "basketball", "bbq",
+                        "bed", "burger", "cactus", "chair", "chicken", "circle", "clock", "coffee",
+                        "cupcake", "diamond", "fries", "glasses", "heart", "hexagon", "hotdog",
+                        "house", "luggage", "medal", "music", "phone", "popsicle", "shelf", "soccer",
+                        "square", "star", "stopwatch", "tablet", "triangle", "weights"));
+        Collections.shuffle(imgTags);
     }
 
     public void drawBackground(TableLayout gameBoard) {

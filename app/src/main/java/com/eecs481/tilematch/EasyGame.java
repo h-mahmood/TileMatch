@@ -40,12 +40,6 @@ public class EasyGame extends GameScreen {
         Collections.shuffle(buttonId);
 
 
-        ArrayList<String> imgTags = new ArrayList<String>(
-                Arrays.asList("circle", "square", "star", "triangle"));
-        Collections.shuffle(imgTags);
-
-
-
         // Initialize the map
         for (int i=0;i<2;i++) {
             tagMap.put(buttonId.get(i),imgTags.get(0));
