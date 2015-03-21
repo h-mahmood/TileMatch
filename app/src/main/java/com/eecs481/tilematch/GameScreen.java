@@ -27,6 +27,7 @@ import java.util.HashMap;
 public class GameScreen extends Activity {
 
     Chronometer timer;
+    ArrayList<String> imgTags; // This keeps an array of all tile images
     HashMap<Long, String> tagMap = new HashMap<Long, String>();
     private Handler pauseHandler = new Handler();
     Long firstID, secondID;
@@ -39,8 +40,6 @@ public class GameScreen extends Activity {
     AnimatorSet setRightOut2;
     AnimatorSet setRightIn1;
     AnimatorSet setRightIn2;
-
-    ArrayList<String> imgTags; //This keeps an array of all tile images
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +129,8 @@ public class GameScreen extends Activity {
             setImage(ib, targetTag, setRightIn1, setRightOut1);
             ib.setEnabled(false);
 
-            //When you click on a tile, wait for the animation to end before releasing the guard
+            /* When you click on a tile, wait for the animation
+               to end before releasing the guard */
             pauseHandler.postDelayed(new Runnable() {
                 public void run() {
                     releaseGuard();
@@ -197,7 +197,8 @@ public class GameScreen extends Activity {
         setImage(ib2, "blank", setRightIn1, setRightOut1);
         setImage(ib1, "blank", setRightIn2, setRightOut2);
 
-        //If the tiles do not match, wait for animation to end before releasing the guard.
+        /* If the tiles do not match, wait for animation to end
+           before releasing the guard */
         pauseHandler.postDelayed(new Runnable() {
             public void run() {
                 releaseGuard();

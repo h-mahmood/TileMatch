@@ -63,7 +63,8 @@ public class PictureList extends ActionBarActivity {
                 FilenameFilter filt = new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String filename) {
-                        return filename.endsWith(".jpg");
+                        return filename.endsWith(".jpg")
+                                || filename.endsWith(".png");
                     }
                 };
                 if (filt.accept(current, current.getAbsolutePath()))
@@ -92,10 +93,14 @@ public class PictureList extends ActionBarActivity {
         setContentView(R.layout.activity_picture_list);
 
         File sdcard = Environment.getExternalStorageDirectory();
-        File dirs = new File(sdcard.getAbsolutePath());
+        File pictures = new File(sdcard.getAbsolutePath() + "/Pictures/");
+        File camera = new File(sdcard.getAbsolutePath() + "/DCIM/Camera/");
+        File downloads = new File(sdcard.getAbsolutePath() + "/Download/");
 
         ArrayList<File> pics = new ArrayList<>();
-        findPics(dirs, pics);
+        findPics(pictures, pics);
+        findPics(camera, pics);
+        findPics(downloads, pics);
         Log.i("[Pic]", "Number of pics found: " + pics.size());
 
         imageAdapter adapter = new imageAdapter(this, pics);
