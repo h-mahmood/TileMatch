@@ -6,6 +6,7 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class EasyGame extends GameScreen {
@@ -38,12 +39,19 @@ public class EasyGame extends GameScreen {
         // Randomize ArrayList
         Collections.shuffle(buttonId);
 
+
+        ArrayList<String> imgTags = new ArrayList<String>(
+                Arrays.asList("circle", "square", "star", "triangle"));
+        Collections.shuffle(imgTags);
+
+
+
         // Initialize the map
         for (int i=0;i<2;i++) {
-            tagMap.put(buttonId.get(i),"circle");
-            tagMap.put(buttonId.get(i+2),"square");
-            tagMap.put(buttonId.get(i+4),"star");
-            tagMap.put(buttonId.get(i+6),"triangle");
+            tagMap.put(buttonId.get(i),imgTags.get(0));
+            tagMap.put(buttonId.get(i+2),imgTags.get(1));
+            tagMap.put(buttonId.get(i+4),imgTags.get(2));
+            tagMap.put(buttonId.get(i+6),imgTags.get(3));
         }
 
         // Loop through image buttons and set tag to "blank"

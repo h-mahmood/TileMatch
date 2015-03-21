@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -73,28 +74,12 @@ public class GameScreen extends Activity {
 
     public void setImage(ImageButton ib, String targetTag, AnimatorSet in, AnimatorSet out) {
         // Changes the image on button ib
-        if (targetTag.equals("circle")) {
-            ib.setImageResource(R.drawable.circle);
-            ib.setTag("circle");
-        }
-        else if (targetTag.equals("square")) {
-            ib.setImageResource(R.drawable.square);
-            ib.setTag("square");
-        }
-        else if (targetTag.equals("star")) {
-            ib.setImageResource(R.drawable.star);
-            ib.setTag("star");
-        }
-        else if (targetTag.equals("triangle")) {
-            ib.setImageResource(R.drawable.triangle);
-            ib.setTag("triangle");
-        }
-        else if (targetTag.equals("blank")) {
-            ib.setImageResource(R.drawable.blank);
-            ib.setTag("blank");
-        }
-        else
-            Log.e("[GameScreen]", "targetTag unexpected: " + targetTag);
+
+        Log.i("[GameScreen]", " targetTag setted: " + targetTag);
+        ib.setTag(targetTag);
+        int picId = getResources().getIdentifier(targetTag, "drawable", "com.eecs481.tilematch");
+        ib.setImageResource(picId);
+
 
         if (in == null || out == null) return;
 

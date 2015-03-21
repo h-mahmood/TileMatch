@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class MediumGame extends GameScreen {
@@ -47,12 +48,17 @@ public class MediumGame extends GameScreen {
         // Randomizes ArrayList
         Collections.shuffle(buttonId);
 
+        ArrayList<String> imgTags = new ArrayList<String>(
+                Arrays.asList("circle", "square", "star", "triangle"));
+        Collections.shuffle(imgTags);
+
+
         // Initialized the map
         for (int i=0;i<4;i++) {
-            tagMap.put(buttonId.get(i),"circle");
-            tagMap.put(buttonId.get(i+4),"square");
-            tagMap.put(buttonId.get(i+8),"star");
-            tagMap.put(buttonId.get(i+12),"triangle");
+            tagMap.put(buttonId.get(i),imgTags.get(0));
+            tagMap.put(buttonId.get(i+4),imgTags.get(1));
+            tagMap.put(buttonId.get(i+8),imgTags.get(2));
+            tagMap.put(buttonId.get(i+12),imgTags.get(3));
         }
 
         // Loop through image buttons and set tag to "blank"
