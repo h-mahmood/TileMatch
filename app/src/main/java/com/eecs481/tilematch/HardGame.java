@@ -15,7 +15,6 @@ public class HardGame extends GameScreen {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hard_game);
-
         maxNumMatched = 12;
 
         // Start timer

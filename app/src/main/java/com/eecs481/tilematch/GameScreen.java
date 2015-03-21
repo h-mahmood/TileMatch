@@ -95,7 +95,6 @@ public class GameScreen extends Activity {
         int picId = getResources().getIdentifier(targetTag, "drawable", "com.eecs481.tilematch");
         ib.setImageResource(picId);
 
-
         if (in == null || out == null) return;
 
         in.setTarget(ib);
@@ -130,6 +129,8 @@ public class GameScreen extends Activity {
             String targetTag = tagMap.get(firstID);
             setImage(ib, targetTag, setRightIn1, setRightOut1);
             ib.setEnabled(false);
+
+            //When you click on a tile, wait for the animation to end before releasing the guard
             pauseHandler.postDelayed(new Runnable() {
                 public void run() {
                     releaseGuard();
@@ -162,8 +163,12 @@ public class GameScreen extends Activity {
                     timer.stop();
 
                     Log.i("[GameScreen]", "Show congratulations sign!");
-                    // Create pop up message
-                    showPopUp();
+                    pauseHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            // Create pop up message after delaying
+                            showPopUp();
+                        }
+                    }, 1000);
                 }
             }
             else {
@@ -184,14 +189,20 @@ public class GameScreen extends Activity {
         ib2.setOnClickListener(null);
         ib1.setVisibility(View.INVISIBLE);
         ib1.setOnClickListener(null);
-        guard = 0;
+        releaseGuard();
     }
 
     public void pauseCallBack(ImageButton ib1, ImageButton ib2) {
         ib1.setEnabled(true);
         setImage(ib2, "blank", setRightIn1, setRightOut1);
         setImage(ib1, "blank", setRightIn2, setRightOut2);
-        guard = 0;
+
+        //If the tiles do not match, wait for animation to end before releasing the guard.
+        pauseHandler.postDelayed(new Runnable() {
+            public void run() {
+                releaseGuard();
+            }
+        }, 255);
     }
 
     public void clickedTile(View v) {
@@ -207,7 +218,7 @@ public class GameScreen extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Closes the popup
-                quitHelper();
+                // quitHelper();
             }
         });
         popUp.setCancelable(true);
