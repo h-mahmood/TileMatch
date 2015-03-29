@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/BlueColor"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -19,6 +20,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="120dp"
+            android:background="@drawable/rounded_button"
             android:text="Quit"
             android:id="@+id/QuitButton"
             android:layout_weight="1"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/timer"
             android:textSize="90dp"
+            android:textColor="@color/MaizeColor"
             android:gravity="right"
             android:layout_weight="1" />
 
