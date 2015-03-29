@@ -7,10 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -63,8 +64,7 @@ public class PictureList extends ActionBarActivity {
                 FilenameFilter filt = new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String filename) {
-                        return filename.endsWith(".jpg")
-                                || filename.endsWith(".png");
+                        return filename.endsWith(".jpg");
                     }
                 };
                 if (filt.accept(current, current.getAbsolutePath()))
@@ -92,6 +92,8 @@ public class PictureList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         File sdcard = Environment.getExternalStorageDirectory();
         File pictures = new File(sdcard.getAbsolutePath() + "/Pictures/");
         File camera = new File(sdcard.getAbsolutePath() + "/DCIM/Camera/");
@@ -106,5 +108,14 @@ public class PictureList extends ActionBarActivity {
         imageAdapter adapter = new imageAdapter(this, pics);
         GridView picList = (GridView) findViewById(R.id.picList);
         picList.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

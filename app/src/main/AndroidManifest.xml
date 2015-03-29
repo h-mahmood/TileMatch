@@ -31,7 +31,8 @@
             android:name=".GameSettings"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_game_settings"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingsTheme" >
         </activity>
         <activity
             android:name=".GameScreen"

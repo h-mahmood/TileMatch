@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="SettingsTheme">
+        <item name="android:background">@color/BlueColor</item>
+        <item name="android:textColor">@color/MaizeColor</item>
+    </style>
+
 </resources>

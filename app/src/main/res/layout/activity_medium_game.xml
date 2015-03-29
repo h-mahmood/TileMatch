@@ -20,7 +20,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="120dp"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/button_background"
             android:text="Quit"
             android:id="@+id/QuitButton"
             android:layout_weight="1"

@@ -9,7 +9,5 @@
     <string name="title_activity_easy_game">EasyGame</string>
     <string name="title_activity_hard_game">HardGame</string>
     <string name="title_activity_picture_list">Select a Picture</string>
-    <color name="BlueColor">#00274C</color>
-    <color name="MaizeColor">#FFCB05</color>
 
 </resources>
