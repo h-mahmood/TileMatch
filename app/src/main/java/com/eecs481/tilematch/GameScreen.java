@@ -116,8 +116,7 @@ public class GameScreen extends Activity {
     public void clickHelper(View v) {
         ImageButton ib = (ImageButton) findViewById(v.getId());
         String s;
-        s = "" + v.getId();
-        Log.i("[GameScreen]", "Clicked button");
+        s = "Clicked Button: " + v.getId();
         Log.i("[GameScreen]", s);
 
         numClicked++;
