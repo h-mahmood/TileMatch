@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 public class GameSettings extends PreferenceActivity {
+
+    private Preference pr; // Keeps track of user preferences
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -20,7 +23,7 @@ public class GameSettings extends PreferenceActivity {
         topBar.setDisplayHomeAsUpEnabled(true);
         topBar.setIcon(android.R.color.transparent);
 
-        Preference pr = findPreference("select_picture");
+        pr = findPreference("select_picture");
         pr.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
