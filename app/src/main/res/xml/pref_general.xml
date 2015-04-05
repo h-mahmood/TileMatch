@@ -1,8 +1,9 @@
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ListPreference
         android:key="select_difficulty"
+        android:layout="@xml/settings_layout"
         android:title="@string/pref_difficulty_title"
         android:summary="@string/pref_difficulty_summary"
         android:defaultValue="2"
@@ -13,12 +14,14 @@
 
     <Preference
         android:key="select_picture"
+        android:layout="@xml/settings_layout"
         android:title="@string/pref_picture_title"
         android:summary="@string/pref_picture_summary"
         android:defaultValue="@string/pref_default_picture_location" />
 
     <CheckBoxPreference
         android:key="use_ask_library"
+        android:layout="@xml/settings_layout"
         android:title="@string/pref_ask_title"
         android:summary="@string/pref_ask_summary"
         android:defaultValue="false" />
