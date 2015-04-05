@@ -6,7 +6,6 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class EasyGame extends GameScreen {

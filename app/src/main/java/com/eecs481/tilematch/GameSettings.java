@@ -1,11 +1,15 @@
 package com.eecs481.tilematch;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.preference.PreferenceActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -31,6 +35,15 @@ public class GameSettings extends PreferenceActivity {
                 return false;
             }
         });
+
+        pr = findPreference("use_ask_library");
+        pr.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                askButtonClick();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -46,6 +59,29 @@ public class GameSettings extends PreferenceActivity {
     public void pictureButtonClick() {
         Log.i("[btn]", "Clicked Picture button");
         startActivity(new Intent(this, PictureList.class));
+    }
+
+    public void askButtonClick() {
+        // Temporary popup until we implement ASK Library
+        Log.i("[btn]", "Clicked ASK button");
+        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        popUp.setMessage("This feature has not been implemented yet");
+        popUp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setCheckboxFalse();
+            }
+        });
+        popUp.setCancelable(true);
+        popUp.create().show();
+    }
+
+    public void setCheckboxFalse() {
+        // Set the checkbox back to unchecked
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor changeSettings = settings.edit();
+        changeSettings.putBoolean("use_ask_library", false);
+        changeSettings.commit();
     }
 
     private void setupSimplePreferencesScreen() {

@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -18,7 +17,6 @@ import android.app.AlertDialog;
 import android.widget.ImageButton;
 import android.widget.Chronometer;
 import android.widget.TableLayout;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -77,13 +75,9 @@ public class GameScreen extends Activity {
         gameBoard.setBackground(btd);
     }
 
-    public void quitHelper() {
-        this.finish();
-    }
-
     public void quitButtonClick(View v) {
         Log.i("[GameScreen]", "quitButtonClick in Game Screen");
-        quitHelper();
+        this.finish();
     }
 
     public void setImage(ImageButton ib, String targetTag, AnimatorSet in, AnimatorSet out) {
@@ -216,10 +210,7 @@ public class GameScreen extends Activity {
         popUp.setMessage("Congratulations! You won!");
         popUp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Closes the popup
-                // quitHelper();
-            }
+            public void onClick(DialogInterface dialog, int which) { }
         });
         popUp.setCancelable(true);
         popUp.create().show();
