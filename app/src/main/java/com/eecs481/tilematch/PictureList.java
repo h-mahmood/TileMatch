@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
@@ -19,11 +19,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-class imageAdapter extends ArrayAdapter<File> {
+class ImageAdapter extends ArrayAdapter<File> {
 
-    public imageAdapter(Context context, ArrayList<File> picList) {
+    public ImageAdapter(Context context, ArrayList<File> picList) {
         super(context, 0, picList);
     }
 
@@ -37,21 +38,78 @@ class imageAdapter extends ArrayAdapter<File> {
 
         ImageView currentPic = (ImageView) convertView.findViewById(R.id.picture_object);
         try {
-            //Note: may need to add function to change picture size when too big
-            Bitmap next = BitmapFactory.decodeFile(current.getAbsolutePath());
-            BitmapDrawable setPic = new BitmapDrawable(next);
-            currentPic.setBackground(setPic);
-            currentPic.setTag(current.getAbsolutePath());
+            // Loads the next image into the current view
+            BitmapLoader nextPic = new BitmapLoader(currentPic);
+            String filePath = current.getAbsolutePath();
+            nextPic.execute(filePath);
+            currentPic.setTag(filePath);
         }
         catch(OutOfMemoryError e) {
-            Log.i("[Pic]", "The picture is too large");
+            Log.e("[Pic]", "The picture is too large");
         }
 
         return convertView;
     }
 }
 
+class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
+
+    final WeakReference<ImageView> picView;
+
+    public BitmapLoader(ImageView view) {
+        picView = new WeakReference<>(view);
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap pic) {
+        if (pic != null && picView != null) {
+            // Sets the view
+            final ImageView view = picView.get();
+            if (view != null)
+                view.setImageBitmap(pic);
+        }
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... params) {
+        // Creates a new thread for each image
+        String path = params[0];
+        return resizePic(path);
+    }
+
+    public Bitmap resizePic(String path) {
+        final BitmapFactory.Options option = new BitmapFactory.Options();
+
+        // Decreases the size/quality of the image for faster loading
+        option.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, option);
+        option.inSampleSize = findPicSize(option);
+        option.inJustDecodeBounds = false;
+        option.inPreferredConfig = Bitmap.Config.RGB_565;
+        option.inDither = true;
+
+        return BitmapFactory.decodeFile(path, option);
+    }
+
+    public int findPicSize(BitmapFactory.Options option) {
+        // Finds what factor to scale the image down to
+        int size = 1;
+        int width = option.outWidth;
+        int height = option.outHeight;
+
+        if (width > 180 || height > 180) {
+            int hWidth = width / 2;
+            int hHeight = height / 2;
+            while ((hWidth / size) > 180 && (hHeight / size) > 180)
+                size *= 2;
+        }
+        return size;
+    }
+}
+
 public class PictureList extends ActionBarActivity {
+
+    ArrayList<File> pics;
 
     void findPics(File root, final ArrayList<File> pics) {
         if (!root.exists())
@@ -92,6 +150,7 @@ public class PictureList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_list);
 
+        // Adds a back button to the menu bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         File sdcard = Environment.getExternalStorageDirectory();
@@ -99,13 +158,20 @@ public class PictureList extends ActionBarActivity {
         File camera = new File(sdcard.getAbsolutePath() + "/DCIM/Camera/");
         File downloads = new File(sdcard.getAbsolutePath() + "/Download/");
 
-        ArrayList<File> pics = new ArrayList<>();
+        // Finds all images stored in the directories listed above
+        pics = new ArrayList<>();
         findPics(pictures, pics);
         findPics(camera, pics);
         findPics(downloads, pics);
         Log.i("[Pic]", "Number of pics found: " + pics.size());
+    }
 
-        imageAdapter adapter = new imageAdapter(this, pics);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        // Dynamically loads each image
+        ImageAdapter adapter = new ImageAdapter(this, pics);
         GridView picList = (GridView) findViewById(R.id.picList);
         picList.setAdapter(adapter);
     }
