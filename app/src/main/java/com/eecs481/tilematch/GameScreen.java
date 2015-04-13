@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ public class GameScreen extends Activity {
     HashMap<Long, String> tagMap = new HashMap<Long, String>();
     private Handler pauseHandler = new Handler();
     Long firstID, secondID;
+    long stopTime = 0;
     int guard = 0;
     int numClicked = 0;
     int numMatched = 0;
@@ -61,6 +63,24 @@ public class GameScreen extends Activity {
                         "house", "luggage", "medal", "music", "phone", "popsicle", "shelf", "soccer",
                         "square", "star", "stopwatch", "tablet", "triangle", "weights"));
         Collections.shuffle(imgTags);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Stops the timer when the game goes out of view
+        stopTime = timer.getBase() - SystemClock.elapsedRealtime();
+        timer.stop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Starts the timer back up again
+        timer.setBase(SystemClock.elapsedRealtime() + stopTime);
+        timer.start();
     }
 
     public void drawBackground(TableLayout gameBoard) {
