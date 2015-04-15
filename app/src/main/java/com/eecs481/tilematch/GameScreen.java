@@ -68,16 +68,22 @@ public class GameScreen extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-
-        // Stops the timer when the game goes out of view
-        stopTime = timer.getBase() - SystemClock.elapsedRealtime();
-        timer.stop();
+        stopTimer();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        startTimer();
+    }
 
+    public void stopTimer() {
+        // Stops the timer when the game goes out of view
+        stopTime = timer.getBase() - SystemClock.elapsedRealtime();
+        timer.stop();
+    }
+
+    public void startTimer() {
         // Starts the timer back up again
         timer.setBase(SystemClock.elapsedRealtime() + stopTime);
         timer.start();
@@ -96,14 +102,39 @@ public class GameScreen extends Activity {
     }
 
     public void quitButtonClick(View v) {
+        // Creates a popup that asks the user if they wish to quit
         Log.i("[GameScreen]", "quitButtonClick in Game Screen");
+        stopTimer();
+        AlertDialog.Builder quitAlert = new AlertDialog.Builder(this);
+        quitAlert.setMessage("Are you sure you want to quit the game?");
+
+        quitAlert.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                quitHelper();
+            }
+        });
+        quitAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startTimer();
+                dialog.dismiss();
+            }
+        });
+
+        quitAlert.setCancelable(false);
+        quitAlert.create().show();
+    }
+
+    public void quitHelper() {
+        // Exits the game screen
         this.finish();
     }
 
     public void setImage(ImageButton ib, String targetTag, AnimatorSet in, AnimatorSet out) {
         // Changes the image on button ib
 
-        Log.i("[GameScreen]", " targetTag setted: " + targetTag);
+        Log.i("[GameScreen]", "targetTag set: " + targetTag);
         ib.setTag(targetTag);
         int picId = getResources().getIdentifier(targetTag, "drawable", "com.eecs481.tilematch");
         ib.setImageResource(picId);
@@ -161,7 +192,7 @@ public class GameScreen extends Activity {
             final ImageButton ib2 = (ImageButton) findViewById(secondID.intValue());
 
             if (tagMap.get(secondID).equals(tagMap.get(firstID))) {
-                Log.i("[GameScreen]", "tile matched!");
+                Log.i("[GameScreen]", "Tiles match");
                 numMatched++;
 
                 // If match, pause for 0.5 seconds, then remove tiles
@@ -171,11 +202,11 @@ public class GameScreen extends Activity {
                     }
                 }, 500);
                 if (numMatched == maxNumMatched) {
-                    Log.i("[GameScreen]", "All tile matched, timer freeze!");
+                    Log.i("[GameScreen]", "All tiles matched, timer stopped");
                     // Freeze timer after all tiles are matched
                     timer.stop();
 
-                    Log.i("[GameScreen]", "Show congratulations sign!");
+                    Log.i("[GameScreen]", "Show winning popup");
                     pauseHandler.postDelayed(new Runnable() {
                         public void run() {
                             // Create pop up message after delaying
@@ -185,7 +216,7 @@ public class GameScreen extends Activity {
                 }
             }
             else {
-                Log.i("[GameScreen]", "tile not match :-<");
+                Log.i("[GameScreen]", "Tiles don't match");
                 // Wait for 2 seconds if they don't match
                 pauseHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -230,7 +261,9 @@ public class GameScreen extends Activity {
         popUp.setMessage("Congratulations! You won!");
         popUp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) { }
+            public void onClick(DialogInterface dialog, int which) {
+                quitHelper();
+            }
         });
         popUp.setCancelable(true);
         popUp.create().show();
