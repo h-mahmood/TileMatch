@@ -1,13 +1,10 @@
 package com.eecs481.tilematch;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -15,7 +12,8 @@ import android.view.MenuItem;
 
 public class GameSettings extends PreferenceActivity {
 
-    private Preference pr; // Keeps track of user preferences
+    // Keeps track of user preferences
+    private Preference pref;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -27,8 +25,8 @@ public class GameSettings extends PreferenceActivity {
         topBar.setDisplayHomeAsUpEnabled(true);
         topBar.setIcon(android.R.color.transparent);
 
-        pr = findPreference("select_picture");
-        pr.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        pref = findPreference("select_picture");
+        pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 pictureButtonClick();
@@ -36,14 +34,29 @@ public class GameSettings extends PreferenceActivity {
             }
         });
 
-        pr = findPreference("use_ask_library");
-        pr.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                askButtonClick();
-                return false;
-            }
-        });
+        // Get the current best scores and display them
+        SharedPreferences scores = PreferenceManager.getDefaultSharedPreferences(this);
+        long easy = scores.getLong("easy_score", 0) / 1000;
+        long medium = scores.getLong("medium_score", 0) / 1000;
+        long hard = scores.getLong("hard_score", 0) / 1000;
+
+        Preference easyPref = findPreference("easy_score");
+        if (easy == 0)
+            easyPref.setTitle("Easy Difficulty: " + "          " + "None");
+        else
+            easyPref.setTitle("Easy Difficulty: " + "          " + easy + " seconds");
+
+        Preference mediumPref = findPreference("medium_score");
+        if (medium == 0)
+            mediumPref.setTitle("Medium Difficulty: " + "    " + "None");
+        else
+            mediumPref.setTitle("Medium Difficulty: " + "    " + medium + " seconds");
+
+        Preference hardPref = findPreference("hard_score");
+        if (hard == 0)
+            hardPref.setTitle("Hard Difficulty: " + "          " + "None");
+        else
+            hardPref.setTitle("Hard Difficulty: " + "          " + hard + " seconds");
     }
 
     @Override
@@ -61,57 +74,8 @@ public class GameSettings extends PreferenceActivity {
         startActivity(new Intent(this, PictureList.class));
     }
 
-    public void askButtonClick() {
-        // Temporary popup until we implement ASK Library
-        Log.i("[btn]", "Clicked ASK button");
-        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        popUp.setMessage("This feature has not been implemented yet");
-        popUp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                setCheckboxFalse();
-            }
-        });
-        popUp.setCancelable(true);
-        popUp.create().show();
-    }
-
-    public void setCheckboxFalse() {
-        // Set the checkbox back to unchecked
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor changeSettings = settings.edit();
-        changeSettings.putBoolean("use_ask_library", false);
-        changeSettings.commit();
-    }
-
     private void setupSimplePreferencesScreen() {
         // Add 'general' preferences.
         addPreferencesFromResource(R.xml.pref_general);
     }
-
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object value) {
-            String stringValue = value.toString();
-
-            if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-
-                // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-
-            } else {
-                // For all other preferences, set the summary to the value's
-                // simple string representation.
-                preference.setSummary(stringValue);
-            }
-            return true;
-        }
-    };
 }

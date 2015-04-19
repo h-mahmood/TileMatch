@@ -203,8 +203,8 @@ public class GameScreen extends Activity {
                 }, 500);
                 if (numMatched == maxNumMatched) {
                     Log.i("[GameScreen]", "All tiles matched, timer stopped");
-                    // Freeze timer after all tiles are matched
-                    timer.stop();
+                    // Stop timer and check for high score
+                    checkScore();
 
                     Log.i("[GameScreen]", "Show winning popup");
                     pauseHandler.postDelayed(new Runnable() {
@@ -267,5 +267,39 @@ public class GameScreen extends Activity {
         });
         popUp.setCancelable(true);
         popUp.create().show();
+    }
+
+    public void checkScore() {
+        timer.stop();
+        long gameTime = SystemClock.elapsedRealtime() - timer.getBase() - 500;
+        long bestTime;
+
+        SharedPreferences scores = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor changeScore = scores.edit();
+        String difficultyLevel = scores.getString("select_difficulty", "2");
+
+        if (difficultyLevel.equals("1")) {
+            bestTime = scores.getLong("easy_score", 0);
+            if (bestTime == 0 || gameTime < bestTime) {
+                changeScore.putLong("easy_score", gameTime);
+                changeScore.commit();
+            }
+        }
+        else if (difficultyLevel.equals("2")) {
+            bestTime = scores.getLong("medium_score", 0);
+            if (bestTime == 0 || gameTime < bestTime) {
+                changeScore.putLong("medium_score", gameTime);
+                changeScore.commit();
+            }
+        }
+        else if (difficultyLevel.equals("3")) {
+            bestTime = scores.getLong("hard_score", 0);
+            if (bestTime == 0 || gameTime < bestTime) {
+                changeScore.putLong("hard_score", gameTime);
+                changeScore.commit();
+            }
+        }
+        else
+            Log.e("[GameScreen]", "difficultyLevel unexpected: " + difficultyLevel);
     }
 }

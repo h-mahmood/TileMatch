@@ -19,11 +19,20 @@
         android:summary="@string/pref_picture_summary"
         android:defaultValue="@string/pref_default_picture_location" />
 
-    <CheckBoxPreference
-        android:key="use_ask_library"
-        android:layout="@xml/settings_layout"
-        android:title="@string/pref_ask_title"
-        android:summary="@string/pref_ask_summary"
-        android:defaultValue="false" />
+    <PreferenceCategory
+        android:title="High Scores"
+        android:layout="@layout/stats_layout" />
+
+    <Preference
+        android:key="easy_score"
+        android:layout="@xml/settings_layout" />
+
+    <Preference
+        android:key="medium_score"
+        android:layout="@xml/settings_layout" />
+
+    <Preference
+        android:key="hard_score"
+        android:layout="@xml/settings_layout" />
 
 </PreferenceScreen>
