@@ -281,7 +281,7 @@ public class GameScreen extends Activity {
 
     public long checkScore() {
         timer.stop();
-        long gameTime = SystemClock.elapsedRealtime() - timer.getBase() - 500;
+        long gameTime = (SystemClock.elapsedRealtime() - timer.getBase() - 500)/1000;
         long bestTime;
 
         SharedPreferences scores = PreferenceManager.getDefaultSharedPreferences(this);
@@ -295,7 +295,7 @@ public class GameScreen extends Activity {
                 changeScore.commit();
             }
             else
-                distanceFromHighScore = gameTime/1000 - bestTime/1000;
+                distanceFromHighScore = gameTime - bestTime;
         }
         else if (difficultyLevel.equals("2")) {
             bestTime = scores.getLong("medium_score", 0);
@@ -304,7 +304,7 @@ public class GameScreen extends Activity {
                 changeScore.commit();
             }
             else
-                distanceFromHighScore = gameTime/1000 - bestTime/1000;
+                distanceFromHighScore = gameTime - bestTime;
         }
         else if (difficultyLevel.equals("3")) {
             bestTime = scores.getLong("hard_score", 0);
@@ -313,13 +313,13 @@ public class GameScreen extends Activity {
                 changeScore.commit();
             }
             else
-                distanceFromHighScore = gameTime/1000 - bestTime/1000;
+                distanceFromHighScore = gameTime - bestTime;
         }
         else
             Log.e("[GameScreen]", "difficultyLevel unexpected: " + difficultyLevel);
 
         if (distanceFromHighScore == 0)
-            return gameTime/1000;
+            return gameTime;
         else
             return 0;
     }

@@ -36,9 +36,9 @@ public class GameSettings extends PreferenceActivity {
 
         // Get the current best scores and display them
         SharedPreferences scores = PreferenceManager.getDefaultSharedPreferences(this);
-        long easy = scores.getLong("easy_score", 0) / 1000;
-        long medium = scores.getLong("medium_score", 0) / 1000;
-        long hard = scores.getLong("hard_score", 0) / 1000;
+        long easy = scores.getLong("easy_score", 0);
+        long medium = scores.getLong("medium_score", 0);
+        long hard = scores.getLong("hard_score", 0);
 
         Preference easyPref = findPreference("easy_score");
         if (easy == 0)
