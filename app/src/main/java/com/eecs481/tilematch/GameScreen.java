@@ -86,6 +86,7 @@ public class GameScreen extends Activity {
 
     public void startTimer() {
         // Starts the timer back up again
+        if (numMatched == maxNumMatched) return;
         timer.setBase(SystemClock.elapsedRealtime() + stopTime);
         timer.start();
     }
