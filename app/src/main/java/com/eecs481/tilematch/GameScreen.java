@@ -31,6 +31,7 @@ public class GameScreen extends Activity {
     private Handler pauseHandler = new Handler();
     Long firstID, secondID;
     long stopTime = 0;
+    long distanceFromHighScore = 0;
     int guard = 0;
     int numClicked = 0;
     int numMatched = 0;
@@ -204,13 +205,13 @@ public class GameScreen extends Activity {
                 if (numMatched == maxNumMatched) {
                     Log.i("[GameScreen]", "All tiles matched, timer stopped");
                     // Stop timer and check for high score
-                    checkScore();
+                    final long score = checkScore();
 
                     Log.i("[GameScreen]", "Show winning popup");
                     pauseHandler.postDelayed(new Runnable() {
                         public void run() {
                             // Create pop up message after delaying
-                            showPopUp();
+                            showPopUp(score);
                         }
                     }, 1000);
                 }
@@ -256,9 +257,9 @@ public class GameScreen extends Activity {
         }
     }
 
-    public void showPopUp() {
+    public void showPopUp(long score) {
         AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        popUp.setMessage("Congratulations! You won!");
+        popUp.setMessage(popUpMessage(score));
         popUp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -269,7 +270,16 @@ public class GameScreen extends Activity {
         popUp.create().show();
     }
 
-    public void checkScore() {
+    public String popUpMessage(long score) {
+        String message = "Congratulations! You won!\n";
+        if (distanceFromHighScore == 0)
+            message += "You got a high score of " + score + " seconds!";
+        else
+            message += "You are " + distanceFromHighScore + " seconds away from a high score";
+        return message;
+    }
+
+    public long checkScore() {
         timer.stop();
         long gameTime = SystemClock.elapsedRealtime() - timer.getBase() - 500;
         long bestTime;
@@ -284,6 +294,8 @@ public class GameScreen extends Activity {
                 changeScore.putLong("easy_score", gameTime);
                 changeScore.commit();
             }
+            else
+                distanceFromHighScore = gameTime/1000 - bestTime/1000;
         }
         else if (difficultyLevel.equals("2")) {
             bestTime = scores.getLong("medium_score", 0);
@@ -291,6 +303,8 @@ public class GameScreen extends Activity {
                 changeScore.putLong("medium_score", gameTime);
                 changeScore.commit();
             }
+            else
+                distanceFromHighScore = gameTime/1000 - bestTime/1000;
         }
         else if (difficultyLevel.equals("3")) {
             bestTime = scores.getLong("hard_score", 0);
@@ -298,8 +312,15 @@ public class GameScreen extends Activity {
                 changeScore.putLong("hard_score", gameTime);
                 changeScore.commit();
             }
+            else
+                distanceFromHighScore = gameTime/1000 - bestTime/1000;
         }
         else
             Log.e("[GameScreen]", "difficultyLevel unexpected: " + difficultyLevel);
+
+        if (distanceFromHighScore == 0)
+            return gameTime/1000;
+        else
+            return 0;
     }
 }
